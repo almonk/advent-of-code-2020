@@ -27,4 +27,3 @@ passwords.each do |hash|
 end
 
 puts valid_passwords.length
-
