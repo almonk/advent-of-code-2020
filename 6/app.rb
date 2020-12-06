@@ -8,8 +8,8 @@ groups.each do |group|
   group_answers = []
   
   people.each do |person|
-    indivual_answers = person.split ""
-    group_answers << indivual_answers
+    individual_answers = person.split ""
+    group_answers << individual_answers
   end
 
   group_answers = Set.new group_answers.flatten
