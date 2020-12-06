@@ -42,10 +42,10 @@ puts @boarding_passes.max_by { |k| k[:seat_id] }
 puts "Finding empty seats"
 
 i = 0
-for i in 0..@total_rows do
+for i in 0..@total_rows
   c = i
   matching_rows = @boarding_passes.select { |ticket| ticket[:row] == i }
-  for c in 0..@total_cols do
+  for c in 0..@total_cols
     if matching_rows.select { |ticket| ticket[:col] == c }.length == 0
       puts "Empty seat at row #{i} col#{c}"
     end
