@@ -26,10 +26,10 @@ def decode_ticket(ticket_arr)
   end
 
   return ticket_hash = {
-    row: previous_row_result[0],
-    col: previous_col_result[0],
-    seat_id: (previous_row_result[0] * 8) + previous_col_result[0]
-  }
+           row: previous_row_result[0],
+           col: previous_col_result[0],
+           seat_id: (previous_row_result[0] * 8) + previous_col_result[0],
+         }
 end
 
 raw_boarding_passes.each do |ticket|
@@ -37,3 +37,17 @@ raw_boarding_passes.each do |ticket|
 end
 
 puts @boarding_passes.max_by { |k| k[:seat_id] }
+
+# Part 2
+puts "Finding empty seats"
+
+i = 0
+for i in 0..@total_rows do
+  c = i
+  matching_rows = @boarding_passes.select { |ticket| ticket[:row] == i }
+  for c in 0..@total_cols do
+    if matching_rows.select { |ticket| ticket[:col] == c }.length == 0
+      puts "Empty seat at row #{i} col#{c}"
+    end
+  end
+end
