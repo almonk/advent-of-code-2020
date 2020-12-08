@@ -15,12 +15,7 @@ require "set"
 end
 
 def compute_param(param, original_value)
-  if param.chars.first == "+"
-    original_value += param.split("+")[1].to_i
-  else
-    original_value -= param.split("-")[1].to_i
-  end
-
+  original_value += param.to_i
   return original_value
 end
 
@@ -44,6 +39,7 @@ loop do
   end
 
   # Process instruction
+  puts "LINE #{x + 1}"
   puts instruction
 
   case instruction[:type]
