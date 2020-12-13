@@ -1,4 +1,4 @@
-@input = File.readlines "input.txt", "\n"
+@input = File.readlines "input-test.txt", "\n"
 @instructions = []
 
 # Read input into structure
@@ -8,7 +8,7 @@ i = 0
     type: int.split(" ")[0],
     param: int.split(" ")[1],
     has_run: false,
-    index: i
+    index: i,
   }
 
   @instructions << int_hash
@@ -61,4 +61,43 @@ def start_vm(instructions:)
   puts accumulator_val
 end
 
+def mutate_instructions(instructions:)
+  # Find all nops
+  # Find all jmps
+  # For each find, switch – run the new instruction
+  # Continue until program terminates successfully
+  lines_to_mutate = []
+  lines_to_mutate << instructions.select { |int| int[:type] == "nop" }
+  lines_to_mutate << instructions.select { |int| int[:type] == "jmp" }
+  lines_to_mutate = lines_to_mutate.flatten
+
+  i = 0
+  while i <= lines_to_mutate.length - 1
+    # Create copy of original instructions
+    copy_of_instructions = []
+    instructions.map { |int| copy_of_instructions << int }
+
+    # Find which element we want to mutate
+    instruction_to_mutate = lines_to_mutate[i]
+    puts "Mutating line:"
+    puts instruction_to_mutate
+
+    puts "to..."
+    if instruction_to_mutate[:type] == "nop"
+      instruction_to_mutate[:type] = "jmp"
+    else
+      instruction_to_mutate[:type] = "nop"
+    end
+
+    puts instruction_to_mutate
+    copy_of_instructions[instruction_to_mutate[:index]] = instruction_to_mutate
+
+    puts "Running iteration #{i}"
+    puts copy_of_instructions
+    
+    i += 1
+  end
+end
+
 start_vm(instructions: @instructions)
+# mutate_instructions(instructions: @instructions)

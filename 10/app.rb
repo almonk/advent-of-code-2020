@@ -17,9 +17,6 @@ bag.each do |n|
   }
 end
 
-# Declare our starting joltage
-STARTING_JOLTAGE = 0
-
 # Function to find suitable adapters for a given joltage
 def find_suitable_adapter_for(joltage)
   # Create a range of suitable adapters that would work
@@ -36,6 +33,7 @@ def find_suitable_adapter_for(joltage)
       # We've used this now...
       suitable_adapter[:has_been_used] = true
 
+      puts suitable_adapter
       # Keep track of difference
       @difference << joltage_difference
       return suitable_adapter[:rating]
@@ -59,13 +57,7 @@ loop do
     @difference << device_rating - next_jolt[0]
     break
   end
-
 end
 
 # Find the total difference counts
-counts = Hash.new(0)
-@difference.each { |n| counts[n] += 1 }
-
-counts.each do |k,v|
-  puts "There are #{v} differences of #{k}"
-end
+puts @difference.tally
