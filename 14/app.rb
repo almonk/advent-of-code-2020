@@ -26,8 +26,7 @@ instructions.each_with_index do |int,line|
     # Bit by bit compare against mask
     current_mask.split("").map.with_index do |bit,index|
       next if bit == "X" # Skip X bits
-      binary_representation[index] = "0" if bit == "0"
-      binary_representation[index] = "1" if bit == "1"
+      binary_representation[index] = bit
     end
 
     new_value = binary_representation.join("").to_i(2)
